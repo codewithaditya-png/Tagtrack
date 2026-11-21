@@ -2,6 +2,8 @@
 
 A shopping watchlist for tracking prices across Amazon India, Flipkart, and Myntra. Compare recorded offers, set your own price targets, and keep product reviews in one place.
 
+**[Open the live TagTrack demo](https://codewithaditya-png.github.io/Tagtrack/)**
+
 ## Run locally
 
 Open `index.html` in a modern browser. There is no build step, account, or API key. Choose **Try sample data** to explore a fictional watchlist without changing your own.
