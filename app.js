@@ -244,6 +244,12 @@ function chart(product) {
   const section = node('section');
   const canvas = node('canvas');
   canvas.setAttribute('role', 'img');
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    canvas.animate(
+      [{clipPath: 'inset(0 100% 0 0)', opacity: .65}, {clipPath: 'inset(0 0 0 0)', opacity: 1}],
+      {duration: 430, easing: 'ease-out'}
+    );
+  }
   canvas.setAttribute('aria-label', 'Price history by store with a dashed target line. Exact prices and dates are listed under Price log.');
   const legend = node('ul', undefined, 'legend');
   for (const store of new Set(points.map(point => point.store))) {
@@ -329,13 +335,23 @@ function render() {
   $('#summary').textContent = (query || targetOnly.checked) ? visible.length + ' of ' + all.length + ' products shown' : '';
   resize.disconnect();
   const empty = all.length ? 'No products match these filters.' : 'Add a product to start tracking its price.';
-  list.replaceChildren(...(visible.length ? visible.map(card) : [node('p', empty, 'empty')]));
+  if (visible.length) {
+    list.replaceChildren(...visible.map(card));
+  } else {
+    const panel = node('div', undefined, 'empty');
+    panel.append(node('p', empty));
+    if (!all.length) panel.append(button('Explore a sample watchlist', () => {
+      demoButton.click();
+      demoButton.focus();
+    }));
+    list.replaceChildren(panel);
+  }
   for (const canvas of list.querySelectorAll('canvas')) resize.observe(canvas);
 }
 
 function sampleProducts() {
   return [{
-    id: 'sample', title: 'Wireless headphones', target: 2499,
+    id: 'sample-headphones', title: 'Wireless headphones', target: 2499,
     prices: [
       {store: 'Amazon', price: 3199, date: '2025-10-02', url: 'https://www.amazon.in/'},
       {store: 'Flipkart', price: 2999, date: '2025-10-05', url: 'https://www.flipkart.com/'},
@@ -343,6 +359,15 @@ function sampleProducts() {
       {store: 'Flipkart', price: 2399, date: '2025-10-17', url: 'https://www.flipkart.com/'}
     ],
     review: {rating: 4, pros: 'Lightweight and easy to pair.', cons: 'Small controls.', verdict: 'A good everyday option at the target price.'}
+  }, {
+    id: 'sample-shoes', title: 'Everyday running shoes', target: 1999,
+    prices: [
+      {store: 'Myntra', price: 2899, date: '2025-10-02', url: 'https://www.myntra.com/'},
+      {store: 'Flipkart', price: 2799, date: '2025-10-05', url: 'https://www.flipkart.com/'},
+      {store: 'Myntra', price: 2199, date: '2025-10-16', url: 'https://www.myntra.com/'},
+      {store: 'Flipkart', price: 2499, date: '2025-10-17', url: 'https://www.flipkart.com/'}
+    ],
+    review: null
   }];
 }
 
