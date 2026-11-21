@@ -12,20 +12,30 @@
 <main>
   <header class="topbar">
     <a class="brand" href="index.html"><span aria-hidden="true">↘</span> TagTrack</a>
-    <button class="primary" id="add" type="button">＋ Add product</button>
+    <button class="primary" id="add" type="button"><span aria-hidden="true">＋</span> Add product</button>
   </header>
   <section class="hero" aria-labelledby="hero-title">
-    <div><h1>See what’s<br>worth buying.</h1><p>Track prices, compare stores, and keep your own verdict.</p></div>
-    <div class="metrics">
+    <div class="hero-copy">
+      <h1>See what’s<br><em>worth buying.</em></h1>
+      <p>Keep prices, comparisons, and your own verdict in one place.</p>
+    </div>
+    <div class="hero-side">
+      <div class="hero-art" aria-hidden="true">
+        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+        <div class="price-tag tag-back"><span>₹</span></div>
+        <div class="price-tag tag-front"><span>↘</span></div>
+      </div>
+      <div class="metrics">
       <div><span>Products watched</span><strong id="watched">0</strong></div>
       <div><span>Targets reached</span><strong id="reached">0</strong></div>
+      </div>
     </div>
   </section>
   <section aria-labelledby="watchlist-title">
     <div class="section-head"><h2 id="watchlist-title">Watchlist</h2><button id="demo" type="button">Try sample data</button></div>
     <p id="demo-note" class="notice" hidden>Sample watchlist. Prices and reviews are fictional. Changes here are temporary.</p>
     <div class="toolbar">
-      <input type="search" id="search" aria-label="Search products" placeholder="Search your watchlist">
+      <label class="search"><span aria-hidden="true">⌕</span><input type="search" id="search" aria-label="Search products" placeholder="Search your watchlist"></label>
       <label class="check"><input id="target-only" type="checkbox"> Target reached only</label>
     </div>
     <p id="summary" class="muted" role="status"></p>
