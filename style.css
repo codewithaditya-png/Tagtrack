@@ -174,3 +174,26 @@ button { transition: background-color 150ms ease; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+.top-actions, .range-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.top-actions { justify-content: flex-end; }
+.range-bar { margin: 12px 0; }
+.range-bar label { font-weight: 700; }
+.comparison { border-top: 1px solid var(--line); padding-top: 12px; }
+.comparison .store-list { margin: 0; }
+.history li { padding: 4px 0; }
+.history button { margin: 0 0 0 8px; font-size: .8rem; padding: 5px 8px; }
+.fare-panel { border: 1px solid var(--line); border-radius: 16px; padding: clamp(14px, 3vw, 24px); background: var(--panel); }
+.fare-panel details, #fare-results, #fare-status:not(:empty) { margin-top: 12px; }
+.fare-panel summary { font-weight: 700; }
+.fare-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); gap: 12px; margin-top: 12px; align-items: end; }
+.fare-form label { display: grid; gap: 4px; min-width: 0; }
+.fare-form :is(input, select) { width: 100%; min-width: 0; }
+.fare-group { border-top: 1px solid var(--line); padding: 12px 0; }
+.fare-group h3 { overflow-wrap: anywhere; }
+.fare-quotes { list-style: none; padding: 0; margin: 8px 0 0; }
+.fare-quotes li { display: flex; align-items: center; justify-content: space-between; gap: 8px 12px; flex-wrap: wrap; padding: 7px 0; }
+.fare-quotes li > div { overflow-wrap: anywhere; }
+.fare-quotes .badge { display: inline-block; margin-left: 6px; }
+.quote-actions { display: flex; flex-wrap: wrap; gap: 7px; }
+.quote-actions button { font-size: .83rem; }
