@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f5f4ee">
   <title>TagTrack — Shopping watchlist</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="app.js" defer></script>
+  <link rel="stylesheet" href="style.css?v=2">
+  <script src="app.js?v=2" defer></script>
 </head>
 <body>
 <main>
   <header class="topbar">
     <a class="brand" href="index.html"><span aria-hidden="true">↘</span> TagTrack</a>
-    <button class="primary" id="add" type="button"><span aria-hidden="true">＋</span> Add product</button>
+    <div class="top-actions"><a href="#train">Train fares</a><button class="primary" id="add" type="button"><span aria-hidden="true">＋</span> Add product</button></div>
   </header>
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero-copy">
@@ -38,10 +38,40 @@
       <label class="search"><span aria-hidden="true">⌕</span><input type="search" id="search" aria-label="Search products" placeholder="Search your watchlist"></label>
       <label class="check"><input id="target-only" type="checkbox"> Target reached only</label>
     </div>
+    <div class="range-bar">
+      <label for="history-range">Price history</label>
+      <select id="history-range">
+        <option value="7d">1 week</option><option value="1m">1 month</option>
+        <option value="3m">3 months</option><option value="6m">6 months</option>
+        <option value="12m">1 year</option><option value="all" selected>All time</option>
+      </select>
+    </div>
     <p id="summary" class="muted" role="status"></p>
     <div id="products" class="products"></div>
   </section>
-  <footer id="storage-status" role="status">Prices are entered by you. Your watchlist and reviews are saved in this browser.</footer>
+  <section id="train" aria-labelledby="train-title">
+    <div class="section-head"><h2 id="train-title">Train fare comparison</h2></div>
+    <div class="fare-panel">
+      <p class="muted">Enter one-person quotes for the same route and travel date. Add fees to compare what you would actually pay.</p>
+      <details id="fare-entry">
+        <summary>Add a fare quote</summary>
+        <form id="fare-form" class="fare-form">
+          <label>From station <input name="from" minlength="2" maxlength="50" placeholder="e.g. PNBE" required></label>
+          <label>To station <input name="to" minlength="2" maxlength="50" placeholder="e.g. NDLS" required></label>
+          <label>Travel date <input name="date" type="date" min="2000-01-01" required></label>
+          <label>Train or service <input name="train" maxlength="80" required></label>
+          <label>Class <select name="railClass" required><option value="">Select a class</option><option>2S</option><option>SL</option><option>3E</option><option>3A</option><option>2A</option><option>1A</option><option>CC</option><option>EC</option><option>Other</option></select></label>
+          <label>Fare (₹) <input name="fare" type="number" min="0.01" max="1000000" step="0.01" required></label>
+          <label>Extra fees (₹) <input name="fees" type="number" min="0" max="1000000" step="0.01" value="0" required></label>
+          <button class="primary" type="submit">Save quote</button>
+          <button id="fare-cancel" type="button" hidden>Cancel edit</button>
+        </form>
+      </details>
+      <p class="muted" id="fare-status" role="status"></p>
+      <div id="fare-results"></div>
+    </div>
+  </section>
+  <footer id="storage-status" role="status">Prices are entered by you. Your watchlist, reviews, and train quotes are saved in this browser.</footer>
 </main>
 
 <dialog id="editor" aria-labelledby="editor-title">
@@ -64,6 +94,9 @@
   <label>Product link <input name="url" type="url" maxlength="2000" placeholder="https://…" required></label>
   <label>Recorded price (₹) <input name="price" type="number" min="0.01" max="100000000" step="0.01" required></label>
   <label>Price date <input name="date" type="date" min="2000-01-01" required></label>
+</template>
+<template id="correction-fields">
+  <label>Corrected price (₹) <input name="price" type="number" min="0.01" max="100000000" step="0.01" required></label>
 </template>
 <template id="review-fields">
   <label>Rating <select name="rating" required><option value="">Select a rating</option><option value="5">5 stars</option><option value="4">4 stars</option><option value="3">3 stars</option><option value="2">2 stars</option><option value="1">1 star</option></select></label>
