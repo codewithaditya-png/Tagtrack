@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f4ee">
+  <title>TagTrack — Shopping watchlist</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+<main>
+  <header class="topbar">
+    <a class="brand" href="index.html"><span aria-hidden="true">↘</span> TagTrack</a>
+    <button class="primary" id="add" type="button">＋ Add product</button>
+  </header>
+  <section class="hero" aria-labelledby="hero-title">
+    <div><h1>See what’s<br>worth buying.</h1><p>Track prices, compare stores, and keep your own verdict.</p></div>
+    <div class="metrics">
+      <div><span>Products watched</span><strong id="watched">0</strong></div>
+      <div><span>Targets reached</span><strong id="reached">0</strong></div>
+    </div>
+  </section>
+  <section aria-labelledby="watchlist-title">
+    <div class="section-head"><h2 id="watchlist-title">Watchlist</h2><button id="demo" type="button">Try sample data</button></div>
+    <p id="demo-note" class="notice" hidden>Sample watchlist. Prices and reviews are fictional. Changes here are temporary.</p>
+    <div class="toolbar">
+      <input type="search" id="search" aria-label="Search products" placeholder="Search your watchlist">
+      <label class="check"><input id="target-only" type="checkbox"> Target reached only</label>
+    </div>
+    <p id="summary" class="muted" role="status"></p>
+    <div id="products" class="products"></div>
+  </section>
+  <footer id="storage-status" role="status">Prices are entered by you. Your watchlist and reviews are saved in this browser.</footer>
+</main>
+
+<dialog id="editor" aria-labelledby="editor-title">
+  <h2 id="editor-title"></h2>
+  <form id="editor-form">
+    <div id="fields"></div>
+    <div class="dialog-actions">
+      <button id="cancel" type="button">Cancel</button>
+      <button class="primary" type="submit">Save</button>
+    </div>
+  </form>
+</dialog>
+
+<template id="product-fields">
+  <label>Product name <input name="title" maxlength="100" required></label>
+  <label>Target price (₹) <input name="target" type="number" min="0.01" max="100000000" step="0.01" required></label>
+</template>
+<template id="price-fields">
+  <label>Store <select name="store" required><option>Amazon</option><option>Flipkart</option><option>Myntra</option></select></label>
+  <label>Product link <input name="url" type="url" maxlength="2000" placeholder="https://…" required></label>
+  <label>Recorded price (₹) <input name="price" type="number" min="0.01" max="100000000" step="0.01" required></label>
+  <label>Price date <input name="date" type="date" min="2000-01-01" required></label>
+</template>
+<template id="review-fields">
+  <label>Rating <select name="rating" required><option value="">Select a rating</option><option value="5">5 stars</option><option value="4">4 stars</option><option value="3">3 stars</option><option value="2">2 stars</option><option value="1">1 star</option></select></label>
+  <label>Pros <textarea name="pros" rows="2" maxlength="300"></textarea></label>
+  <label>Cons <textarea name="cons" rows="2" maxlength="300"></textarea></label>
+  <label>Your verdict <textarea name="verdict" rows="3" maxlength="500" required></textarea></label>
+</template>
+</body>
+</html>
